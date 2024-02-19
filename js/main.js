@@ -3,8 +3,12 @@ document.getElementById("title").innerText = "Point and Click Adventure game";
 const gameWindow = document.getElementById("gameWindow");
 
 //Game state
-gameState = {
+let gameState = {
     "door2locked": true,
+    "inventory": [
+        "banana",
+        "Apple"
+    ]
 
 }
 
@@ -19,6 +23,9 @@ const inventoryList = document.getElementById("inventoryList")
 //Foreground items
 const door1 = document.getElementById("door1");
 const sign = document.getElementById("sign");
+
+updateInventory(gameState.inventory, inventoryList);
+
 
 gameWindow.onclick = function (e) {
     var rect = gameWindow.getBoundingClientRect();
@@ -39,10 +46,7 @@ gameWindow.onclick = function (e) {
             if (document.getElementById("key1") !== null) {
                 console.log("Found Key!");
                 document.getElementById("key1").remove();
-                const keyElement = document.createElement("li");
-                keyElement.id = "inv-key";
-                keyElement.innerText = "Key";
-                inventoryList.appendChild(keyElement);
+                changeInventory('Key', 'add');
 
 
             } break;
@@ -50,9 +54,12 @@ gameWindow.onclick = function (e) {
         case "door2":
             if (gameState.door2locked == true) {
                 //check wether we have key
-                if (document.getElementById("inv-key") !== null) {
+                if (document.getElementById("inv-Key") !== null) {
                     //yes -> unlock door?
                     gameState.door2locked = false;
+                    changeInventory('Key', 'delete');
+                    console.log("Door is now open.");
+
                 } else {
                     //no -> alert 'door locked'
                     alert('Door is locked');
@@ -60,8 +67,6 @@ gameWindow.onclick = function (e) {
             } else {
                 console.log('Enter building');
             }
-
-
 
             break;
 
@@ -84,6 +89,60 @@ gameWindow.onclick = function (e) {
 
     }
 
+    updateInventory(gameState.inventory, inventoryList);
+
+
+}
+
+/**
+ * function to change inventory
+ * @param {string} itemName 
+ * @param {string} action 
+ * @returns 
+ */
+function changeInventory(itemName, action) {
+    if (itemName == null || action == null) {
+        console.log("Wrong parameters given to changeInventory");
+        return
+    }
+
+    switch (action) {
+        case 'add':
+            gameState.inventory.push(itemName);
+
+            break;
+
+        case 'delete':
+            gameState.inventory.find(function (item, index) {
+                if (item == itemName) {
+                    var index = gameState.inventory.indexOf(item);
+                    if (index !== -1) {
+                        gameState.inventory.splice(index, 1);
+                    }
+
+                }
+            })
+            break;
+
+        default:
+            break;
+    }
+    updateInventory(gameState.inventory, inventoryList);
+}
+/**
+ * update inventoryList
+ * @param {Array} inventory array of items
+ * @param {HTMLElement} inventoryList html <ul> element
+ */
+function updateInventory(inventory, inventoryList) {
+    inventoryList.innerHTML = '';
+    inventory.forEach(function (item) {
+        const inventoryItem = document.createElement("li");
+        inventoryItem.id = "inv-" + item;
+        inventoryItem.innerText = item;
+        inventoryList.appendChild(inventoryItem);
+
+    })
 
 
 
