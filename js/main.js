@@ -6,11 +6,11 @@ const gameWindow = document.getElementById("gameWindow");
 let gameState = {
     "door2locked": true,
     "inventory": [
-        "banana",
-        "Apple"
+
     ]
 
 }
+const sec = 1000;
 
 //Main Character
 const mainCharacter = document.getElementById("mainCharacter");
@@ -31,15 +31,17 @@ gameWindow.onclick = function (e) {
     var rect = gameWindow.getBoundingClientRect();
     var x = e.clientX - rect.left;
     var y = e.clientY - rect.top;
+
+    if (e.target.id !== "mcImage") {
+        mainCharacter.style.left = x - offsetCharacter + "px";
+        mainCharacter.style.top = y - offsetCharacter + "px";
+    }
+
+
     console.log(e.target.id);
-    mainCharacter.style.left = x - offsetCharacter + "px";
-    mainCharacter.style.top = y - offsetCharacter + "px";
-
-
     switch (e.target.id) {
         case "door1":
 
-            mainCharacter.style.backgroundColor = "#FFFF00";
             door1.style.opacity = 0.5;
             sign.style.opacity = 1;
 
@@ -73,8 +75,6 @@ gameWindow.onclick = function (e) {
 
 
         case "sign":
-
-            mainCharacter.style.backgroundColor = "#00FF00";
             sign.style.opacity = 0.5;
             door1.style.opacity = 1;
 
@@ -82,7 +82,6 @@ gameWindow.onclick = function (e) {
 
         default:
             //explode
-            mainCharacter.style.backgroundColor = "#7FFFD4"
             door1.style.opacity = 1;
             sign.style.opacity = 1;
             break;
@@ -147,3 +146,17 @@ function updateInventory(inventory, inventoryList) {
 
 
 }
+
+function showMessage(targetBalloon) {
+    document.getElementById(targetBalloon).style.opacity = "1";
+    setTimeout(hideMessage, 2 * sec, targetBalloon);
+}
+//showMessage("mainCharacterSpeech");
+//showMessage("counterSpeech");
+setTimeout(showMessage, 1 * sec, "mainCharacterSpeech");
+setTimeout(showMessage, 2 * sec, "counterSpeech");
+
+function hideMessage(targetBalloon) {
+    document.getElementById(targetBalloon).style.opacity = "0";
+}
+
