@@ -37,22 +37,22 @@ body {
 }
 
 /*Foreground items*/
-#door1 {
-    width: 64px;
-    height: 64px;
+#keyInPool {
+    width: 258px;
+    height: 183px;
     /*background-color: rgb(255, 0, 0);*/
     opacity: 1;
-    top: 65px;
-    left: 480px;
+    top: 371px;
+    left: 498px;
 }
 
-#door2 {
-    width: 48px;
-    height: 64px;
+#door1 {
+    width: 32px;
+    height: 56px;
     /*background-color: rgb(255, 0, 0);*/
     opacity: 1;
-    top: 296px;
-    left: 168px;
+    top: 405px;
+    left: 308px;
 }
 
 #key1 {
@@ -113,14 +113,14 @@ body {
 #brownBar {
     position: absolute;
     height: 32px;
-    width: 800px;
+    width: 832px;
     background-color: brown;
-    bottom: 0px;
+    bottom: -20px;
 }
 
 #mainCharacterAvatar {
     left: 0px;
-    bottom: 0px;
+    bottom: -20px;
     /*background-color: red;*/
     width: 72px;
     height: 68px;
@@ -134,7 +134,7 @@ body {
 
 #counterAvatar {
     right: 0px;
-    bottom: 0px;
+    bottom: -20px;
     /*background-color: red;*/
     width: 72px;
     height: 68px;

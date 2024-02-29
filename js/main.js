@@ -1,15 +1,37 @@
 document.getElementById("title").innerText = "Point and Click Adventure game";
-//game window reference
-const gameWindow = document.getElementById("gameWindow");
 
 //Game state
 let gameState = {
-    "door2locked": true,
-    "inventory": [
+    "door1locked": true,
+    "inventory": [],
+    "KeyPickedUp": false
+}
+//localStorage.removeItem("gameState");
+// Handle browser storage
+if (typeof (Storage) !== "undefined") {
+    //check if gamestate already exists
+    if (localStorage.gameState) {
+        //Load savegame into local variable
+        gameState = JSON.parse(localStorage.gameState);
 
-    ]
+    } else {
+        //save local gamestate into browser storage
+        localStorage.setItem("gameState", JSON.stringify(gameState))
+    }
+}
+else {
+    //sorry! no web storage support..
+    alert('Web storage not supported!')
 
 }
+
+//game window reference
+const gameWindow = document.getElementById("gameWindow");
+
+if (gameState.KeyPickedUp) {
+    document.getElementById("key1").remove();
+}
+
 const sec = 1000;
 
 //Main Character
@@ -33,6 +55,9 @@ const sign = document.getElementById("sign");
 
 updateInventory(gameState.inventory, inventoryList);
 
+//update inventory with gameState items
+updateInventory(gameState.inventory, inventoryList);
+
 
 gameWindow.onclick = function (e) {
     var rect = gameWindow.getBoundingClientRect();
@@ -47,7 +72,7 @@ gameWindow.onclick = function (e) {
 
     console.log(e.target.id);
     switch (e.target.id) {
-        case "door1":
+        case "keyInPool":
 
             door1.style.opacity = 0.5;
             sign.style.opacity = 1;
@@ -56,12 +81,15 @@ gameWindow.onclick = function (e) {
                 console.log("Found Key!");
                 document.getElementById("key1").remove();
                 changeInventory('Key', 'add');
+                gameState.KeyPickedUp = true;
+                saveToBrowser(gameState);
+
 
 
             } break;
 
-        case "door2":
-            if (gameState.door2locked == true) {
+        case "door1":
+            if (gameState.door1locked == true) {
                 //check wether we have key
                 if (document.getElementById("inv-Key") !== null) {
                     //yes -> unlock door?
@@ -199,3 +227,11 @@ function hideMessage(targetBalloon, targetSound) {
 //setTimeout(showMessage, 2 * sec, counterSpeech, "Yo buddy");
 
 showMessage()
+
+/**
+ * store gameState into localStorage.gameState
+ * @param {Object} gameState our gameState object
+ */
+function saveToBrowser(gameState) {
+    localStorage.gameState = JSON.stringify(gameState);
+}
