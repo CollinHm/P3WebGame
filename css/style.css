@@ -64,21 +64,14 @@ body {
     left: 306px;
 }
 
-#sign {
-    width: 64px;
-    height: 32px;
-    background-color: beige;
-    top: 400px;
-    left: 20px;
-}
 
-#statue {
-    width: 32px;
-    height: 64px;
-    /*background-color: rgb(124, 36, 51);*/
+#ghost {
+    width: 38px;
+    height: -6px;
+    /* background-color: rgb(124, 36, 51);*/
     opacity: 1;
-    top: 285px;
-    left: 704px;
+    top: 426px;
+    left: 372px;
 
 }
 
@@ -177,6 +170,7 @@ body {
     z-index: 0;
 
 }
+
 
 .speech-bubble {
     background-color: #FFFFFF;

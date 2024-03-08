@@ -8,22 +8,22 @@ let gameState = {
 }
 //localStorage.removeItem("gameState");
 // Handle browser storage
-if (typeof (Storage) !== "undefined") {
-    //check if gamestate already exists
-    if (localStorage.gameState) {
-        //Load savegame into local variable
-        gameState = JSON.parse(localStorage.gameState);
+//if (typeof (Storage) !== "undefined") {
+//check if gamestate already exists
+//if (localStorage.gameState) {
+//Load savegame into local variable
+//gameState = JSON.parse(localStorage.gameState);
 
-    } else {
-        //save local gamestate into browser storage
-        localStorage.setItem("gameState", JSON.stringify(gameState))
-    }
-}
-else {
-    //sorry! no web storage support..
-    alert('Web storage not supported!')
+//} else {
+//save local gamestate into browser storage
+// localStorage.setItem("gameState", JSON.stringify(gameState))
+// }
+//}
+//else {
+//sorry! no web storage support..
+//alert('Web storage not supported!')
 
-}
+//}
 
 //game window reference
 const gameWindow = document.getElementById("gameWindow");
@@ -51,7 +51,6 @@ const inventoryList = document.getElementById("inventoryList")
 
 //Foreground items
 const door1 = document.getElementById("door1");
-const sign = document.getElementById("sign");
 
 updateInventory(gameState.inventory, inventoryList);
 
@@ -82,7 +81,6 @@ gameWindow.onclick = function (e) {
                 document.getElementById("key1").remove();
                 changeInventory('Key', 'add');
                 gameState.KeyPickedUp = true;
-                saveToBrowser(gameState);
 
 
 
@@ -103,29 +101,23 @@ gameWindow.onclick = function (e) {
                 }
             } else {
                 console.log('Enter building');
+
             }
 
             break;
 
 
-
-        case "sign":
-            sign.style.opacity = 0.5;
-            door1.style.opacity = 1;
-
-            break;
-
-        case "statue":
-            showMessage(mainCharacterSpeech, mcAudio, "Wow, a cool statue!");
+        case "ghost":
+            showMessage(counterSpeech, mcAudio, "Hello, Human.");
             setTimeout(function () { counterAvatarImg.style.opacity = 1 }, 2 * sec);
-            setTimeout(showMessage, 4 * sec, counterSpeech, counterAudio, "Hello... Person");
-            setTimeout(showMessage, 8 * sec, mainCharacterSpeech, mcAudio, "YOU CAN TALK?!");
-            setTimeout(showMessage, 12 * sec, counterSpeech, counterAudio, "Yes.. wait you can hear me?");
-            setTimeout(showMessage, 16 * sec, mainCharacterSpeech, mcAudio, "Yes i can! this is amazing.");
-            setTimeout(showMessage, 20 * sec, counterSpeech, counterAudio, "This has never happened before..");
-            setTimeout(showMessage, 24 * sec, mainCharacterSpeech, mcAudio, "Could you help me find the key to the left house?");
-            setTimeout(showMessage, 28 * sec, counterSpeech, counterAudio, "Go to the well, there is a key hidden in there.");
-            setTimeout(showMessage, 32 * sec, mainCharacterSpeech, mcAudio, "Thank you!!");
+            setTimeout(showMessage, 4 * sec, mainCharacterSpeech, counterAudio, "WOAH! A GHOST");
+            setTimeout(showMessage, 8 * sec, counterSpeech, mcAudio, "Yes, a ghost indeed");
+            setTimeout(showMessage, 12 * sec, mainCharacterSpeech, counterAudio, "I would've never expected this to happen");
+            setTimeout(showMessage, 16 * sec, counterSpeech, mcAudio, "So why are you here.. human?");
+            setTimeout(showMessage, 20 * sec, mainCharacterSpeech, counterAudio, "I am searching for a key, which leads to the exit of this place");
+            setTimeout(showMessage, 24 * sec, counterSpeech, mcAudio, "A key you say.. there was a key in the water a long time ago, you should check there");
+            setTimeout(showMessage, 28 * sec, mainCharacterSpeech, counterAudio, "Wow! i definitely will, thank you!");
+            setTimeout(showMessage, 32 * sec, counterSpeech, mcAudio, "No problem human.. Good luck.");
 
             setTimeout(function () { counterAvatarImg.style.opacity = 0 }, 36 * sec);
             break;
@@ -232,6 +224,6 @@ showMessage()
  * store gameState into localStorage.gameState
  * @param {Object} gameState our gameState object
  */
-function saveToBrowser(gameState) {
-    localStorage.gameState = JSON.stringify(gameState);
-}
+//function saveToBrowser(gameState) {
+// localStorage.gameState = JSON.stringify(gameState);
+//}
